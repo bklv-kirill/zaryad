@@ -3,8 +3,9 @@
 2. Заполните `.env` файл;
 3. Установите `composer` зависимости: `composer install`;
 4. Выполните миграции базы данных: `php artisan migrate`;
-5. Установите `npm` зависимости: `npm install`;
-6. Выполните сборку `JS` и `CSS` файлов: `npm run build`;
+5. Выполните генерацию ключа приложения: `php artisan key:generate`;
+6. Установите `npm` зависимости: `npm install`;
+7. Выполните сборку `JS` и `CSS` файлов: `npm run build`;
 
 ## Ручное развертывание через Docker Compose
 1. Создайте `.env` файл на основе `.env.example`;
