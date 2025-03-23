@@ -6,26 +6,30 @@ use Illuminate\Support\Facades\Http;
 
 trait Imageable
 {
-    private const SOURCE_URL = 'https://cataas.com/cat';
-    private const DEFAULT_IMAGE_URL = '';
-
     public function getRandomImages(int $limit = 3): array
     {
-       $images = [];
+        $images = [];
 
-       for ($i = 1; $i <= $limit; $i++) {
-           $images[] = $this->getRandomImage();
-       }
+        for ($i = 1; $i <= $limit; $i++) {
+            $images[] = $this->getRandomImage();
+        }
 
-       return $images;
+        return $images;
     }
 
     public function getRandomImage(): string
     {
-        $response = Http::acceptJson()->get(self::SOURCE_URL);
+        $defaultImageUrl = env('DEFAULT_IMAGE_URL');
+
+        if (env('DYNAMIC_IMAGES') === false) {
+            return $defaultImageUrl;
+        }
+
+        $response = Http::acceptJson()
+            ->get(env('RANDOM_IMAGE_SOURCE_URL'));
 
         if ($response->failed()) {
-            return self::DEFAULT_IMAGE_URL;
+            return $defaultImageUrl;
         }
 
         $responseData = $response->json();
