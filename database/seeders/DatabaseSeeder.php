@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Category::factory()
-            ->count(5)
+            ->count(10)
             ->create();
 
         Article::factory()
-            ->count(10)
+            ->count(50)
             ->create();
 
         Article::query()->get()->each(function (Article $article) {

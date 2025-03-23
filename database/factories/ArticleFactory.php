@@ -11,14 +11,17 @@ class ArticleFactory extends Factory
 
     public function definition(): array
     {
-        $title = str($this->faker->unique()->word())->ucfirst();
+        $title = str($this->faker->unique()->words(5, true))->ucfirst();
         $slug = str($title)->slug();
-        $content = $this->faker->paragraph(5);
+        $content = $this->faker->paragraph(8);
+        $date = $this->faker->date();
 
         return [
             'title' => $title,
             'slug' => $slug,
             'content' => $content,
+            'created_at' => $date,
+            'updated_at' => $date,
         ];
     }
 }
