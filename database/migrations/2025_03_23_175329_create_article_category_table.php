@@ -11,11 +11,11 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignIdFor(\App\Models\Article::class, 'article_id')
-                ->constrained()
+                ->constrained('articles')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Category::class, 'category_id')
-                ->constrained()
+                ->constrained('categories')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

@@ -17,5 +17,16 @@ class DatabaseSeeder extends Seeder
         Article::factory()
             ->count(10)
             ->create();
+
+        Article::query()->get()->each(function (Article $article) {
+            $categoriesIds = Category::query()
+                ->inRandomOrder()
+                ->limit(3)
+                ->get()
+                ->pluck('id')
+                ->toArray();
+
+            $article->categories()->attach($categoriesIds);
+        });
     }
 }
