@@ -2,7 +2,7 @@
 1. Создайте `.env` файл на основе `.env.example`;
 2. Заполните `.env` файл;
 3. Установите `composer` зависимости: `composer install`;
-4. Выполните миграции базы данных: `php artisan migrate`;
+4. Выполните миграции базы данных: `php artisan migrate --seed`;
 5. Выполните генерацию ключа приложения: `php artisan key:generate`;
 6. Установите `npm` зависимости: `npm install`;
 7. Выполните сборку `JS` и `CSS` файлов: `npm run build`;
@@ -20,7 +20,7 @@
    8. Установите переменную `DB_ROOT_PASSWORD` (например `root`);
 3. Запустите приложение: `docker compose up --build -d nginx`;
 4. Установите `composer` зависимости: `docker compose exec -it php composer install`;
-5. Выполните миграции базы данных: `docker compose exec -it php php artisan migrate`;
+5. Выполните миграции базы данных: `docker compose exec -it php php artisan migrate --seed`;
 6. Выполните генерацию ключа приложения: `docker compose exec -it php php artisan key:generate`;
 7. Установите `npm` зависимости: `docker compose run --rm npm install`;
 8. Выполните сборку `JS` и `CSS` файлов: `docker compose run --rm npm run build`;
@@ -38,3 +38,8 @@
 6. Очистка временных файлов использую Makefile: `make clear`;
 7. Сборка `JS` и `CSS` файлов через Docker Compose: `docker compose run --rm npm run build`;
 8. Сборка `JS` и `CSS` файлов используя Makefile: `make build`;
+
+### ENV
+1. Переменная `DYNAMIC_IMAGES`: отвечает за динамическую подгрузку случайных картинок со стороннего сервиса;
+2. Переменная `RANDOM_IMAGE_SOURCE_URL`: отвечает за `url` сервиса с которого будут динамически подгружаться случайные картинки;
+3. Переменная `DEFAULT_IMAGE_URL`: отвечает за `url` стандартной картинки, если переменная `DYNAMIC_IMAGES` находится в значении `false`;
