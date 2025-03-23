@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Article\DifferentDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,6 +17,10 @@ class Article extends Model
         'title',
         'content',
         'slug',
+    ];
+
+    protected $casts = [
+        'diff_date' => DifferentDate::class,
     ];
 
     public function categories(): BelongsToMany
