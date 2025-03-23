@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Article\DifferentDate;
+use App\Traits\Imageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Article extends Model
 {
     use HasFactory;
+
+    use Imageable;
 
     protected $table = 'articles';
 
