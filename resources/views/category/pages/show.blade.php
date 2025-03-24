@@ -12,17 +12,17 @@
                         <div class="col-md-12">
                             @foreach($articles as $article)
                                 <div class="post-entry-horzontal">
-                                    <a href="{{ route('article.show', [$article->categories->first()->slug, $article->slug]) }}">
+                                    <a href="{{ route('article.show', [$category->slug, $article->slug]) }}">
                                         <div class="image element-animate" data-animate-effect="fadeIn"
-                                             style="background-image: url('{{ $article->getRandomImage() }}');">
+                                             style="background-image: url('{{ $randomImageService->getRandomImage() }}');">
                                         </div>
                                         <span class="text">
                                               <div class="post-meta">
                                                     <span class="category">
-                                                        {{ $article->categories->first()->title }}
+                                                        {{ $category->title }}
                                                     </span>
                                                     <span class="mr-2">
-                                                        {{ $article->diff_date }}
+                                                        {{ $article->createdAt }}
                                                     </span>
                                                     &bullet;
                                                     <span class="ml-2"><span class="fa fa-comments"></span>{{ rand(1, 50) }}</span>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    {{ $articles->links() }}
+                    {{-- {{ $articles->links() }} --}}
                 </div>
 
                 <x-sidebar/>

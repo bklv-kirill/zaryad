@@ -27,7 +27,8 @@
                     @foreach($articles as $article)
                         <li>
                             <a href="{{ route('article.show', [$article->categories->first()->slug, $article->slug]) }}">
-                                <img src="{{ $article->getRandomImage() }}" alt="Image placeholder" class="mr-4">
+                                <img src="{{ $randomImageService->getRandomImage() }}" alt="Image placeholder"
+                                     class="mr-4">
                                 <div class="text">
                                     <h4>{{ $article->title }}</h4>
                                     <div class="post-meta">

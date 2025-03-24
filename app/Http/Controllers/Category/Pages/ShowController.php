@@ -5,22 +5,33 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Category\Pages;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Interfaces\Repositories\Article\ArticleRepository;
+use App\Interfaces\Repositories\Category\CategoryRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ShowController extends Controller
 {
+    public function __construct(
+        private readonly CategoryRepository $categoryRepository,
+        private readonly ArticleRepository  $articleRepository,
+    )
+    {
+    }
+
     public function __invoke(Request $request, string $categorySlug): View
     {
-        $category = Category::query()
-            ->whereSlug($categorySlug)
-            ->firstOrFail();
+        $category = $this->categoryRepository
+            ->getBySlug($categorySlug);
 
-        $page = $request->input('page', 1);
-        $articles = $category->articles()->paginate(5, page: $page);
+        abort_if(is_null($category), Response::HTTP_NOT_FOUND);
 
-        abort_if($articles->isEmpty(), 404);
+        $page = (int)$request->input('page', 1);
+        $articles = $this->articleRepository
+            ->paginate(6, $page);
+
+        abort_if(empty($articles), Response::HTTP_NOT_FOUND);
 
         return view('category.pages.show')
             ->with('category', $category)

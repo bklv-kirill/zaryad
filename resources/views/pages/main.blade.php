@@ -1,5 +1,5 @@
 <x-layout-main title="Zaryd">
-    @if($articles->isNotEmpty())
+    @if(!empty($articles))
         <section class="site-section pt-5">
             <div class="container">
                 <div class="row">
@@ -8,13 +8,13 @@
                             @foreach($articles as $article)
                                 @break($loop->iteration > 3)
                                 <div>
-                                    <a href="{{ route('article.show', [$article->categories->first()->slug, $article->slug]) }}"
+                                    <a href="{{ route('article.show', [$cats[$article->id][0]->slug, $article->slug]) }}"
                                        class="a-block d-flex align-items-center height-lg"
-                                       style="background-image: url('{{ $article->getRandomImage() }}'); ">
+                                       style="background-image: url('{{ $randomImageService->getRandomImage() }}'); ">
                                         <div class="text half-to-full">
                                             <div class="post-meta">
-                                                <span class="category">{{ $article->categories->first()->title }}</span>
-                                                <span class="mr-2">{{ $article->diff_date }}</span>
+                                                <span class="category">{{ $cats[$article->id][0]->title }}</span>
+                                                <span class="mr-2">{{ $article->createdAt }}</span>
                                                 &bullet;
                                                 <span class="ml-2"><span class="fa fa-comments"></span>{{ rand(1, 50) }}</span>
                                             </div>
@@ -45,16 +45,17 @@
                     <div class="row">
                         @forelse($articles as $article)
                             <div class="col-md-6">
-                                <a href="{{ route('article.show', [$article->categories->first()->slug, $article->slug]) }}"
+                                <a href="{{ route('article.show', [$cats[$article->id][0]->slug, $article->slug]) }}"
                                    class="blog-entry element-animate"
                                    data-animate-effect="fadeIn">
-                                    <img src="{{ $article->getRandomImage() }}" alt="Image placeholder">
+                                    <img src="{{ $randomImageService->getRandomImage() }}" alt="Image placeholder">
                                     <div class="blog-content-body">
                                         <div class="post-meta">
-                                            <span class="category">{{ $article->categories->first()->title }}</span>
-                                            <span class="mr-2">{{ $article->diff_date }}</span>
+                                            <span class="category">{{ $cats[$article->id][0]->title }}</span>
+                                            <span class="mr-2">{{ $article->createdAt }}</span>
                                             &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span>{{ rand(1, 50) }}</span>
+                                            <span class="ml-2"><span
+                                                    class="fa fa-comments"></span>{{ rand(1, 50) }}</span>
                                         </div>
                                         <h2>{{ $article->title }}</h2>
                                     </div>
@@ -67,7 +68,7 @@
                         @endforelse
                     </div>
 
-                    {{ $articles->links() }}
+                    {{-- {{ $articles->links() }} --}}
                 </div>
 
                 <x-sidebar/>

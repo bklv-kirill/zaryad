@@ -10,7 +10,7 @@
                 <div class="col-md-6 col-lg-4">
                     <a href="{{ route('article.show', [$article->categories->first()->slug, $article->slug]) }}"
                        class="a-block d-flex align-items-center height-md"
-                       style="background-image: url('{{ $article->getRandomImage() }}');">
+                       style="background-image: url('{{ $randomImageService->getRandomImage() }}');">
                         <div class="text">
                             <div class="post-meta">
                                 <span class="category">{{ $article->categories->first()->title }}</span>
