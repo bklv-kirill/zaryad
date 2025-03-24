@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Traits;
+namespace App\Services\RandomImage;
 
+use App\Interfaces\Services\RandomImage\RandomImageService;
 use Illuminate\Support\Facades\Http;
 
-trait Imageable
+class RandomCatImageService implements RandomImageService
 {
-    public function getRandomImages(int $limit = 3): array
+    public function getRandomImages(int $count = 3): array
     {
         $images = [];
 
-        for ($i = 1; $i <= $limit; $i++) {
+        for ($i = 1; $i <= $count; $i++) {
             $images[] = $this->getRandomImage();
         }
 

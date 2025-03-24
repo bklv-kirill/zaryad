@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Services\RandomImage\RandomCatImageService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
@@ -14,16 +15,18 @@ class BladeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-    }
 
-    public function boot(): void
-    {
         View::composer('*', function (\Illuminate\View\View $view) {
+            $randomImageService = new RandomCatImageService();
+
             $categories = Category::query()
                 ->latest()
                 ->get();
 
-            $view->with('categories', $categories);
+            $view->with([
+                'randomImageService' => $randomImageService,
+                'categories' => $categories,
+            ]);
         });
 
         Paginator::useBootstrap();
@@ -37,5 +40,9 @@ class BladeServiceProvider extends ServiceProvider
         Blade::component(\App\View\Components\Module\Loader::class, 'loader');
         Blade::component(\App\View\Components\Module\Sidebar::class, 'sidebar');
         Blade::component(\App\View\Components\Module\Articles::class, 'articles');
+    }
+
+    public function boot(): void
+    {
     }
 }
